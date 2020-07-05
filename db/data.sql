@@ -17,7 +17,10 @@ CREATE TABLE animals
     user_id BIGINT REFERENCES users (id),
     image_url VARCHAR(255) not null,
     type_text VARCHAR(255),
-    location_text VARCHAR(255),
+    city VARCHAR(255),
+    zipcode VARCHAR(255),
+    street_address VARCHAR(255),
+    country VARCHAR(255),
     created_at TIMESTAMP not null default now()
 );
 
