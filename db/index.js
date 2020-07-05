@@ -70,10 +70,57 @@ const createAnimal = (req, res) => {
     );
 };
 
+const updateAnimal = (req, res) => {
+    const id = parseInt(req.params.id);
+    const { user_id, image_url, type_text, city, zipcode, street_address, country } = req.body;
+
+    pool.query(
+        `
+        UPDATE animals SET 
+            user_id = $1, 
+            image_url = $2, 
+            type_text = $3,
+            city = $4,
+            zipcode = $5,
+            street_address = $6,
+            country = $7
+        WHERE id = $8`,
+        [user_id, image_url, type_text, city, zipcode, street_address, country, id],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).send(`Animal ${id} succesfully modified`);
+        }
+    );
+};
+
+const deleteAnimal = (req, res) => {
+    const id = parseInt(req.params.id);
+
+    pool.query(
+        `
+        DELETE FROM
+            animals
+        WHERE
+            id = $1
+    `,
+        [id],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).send(`Animal ${id} deleted`);
+        }
+    );
+};
+
 module.exports = {
     getUsers,
     getUserById,
     getAnimals,
     getAnimalsById,
     createAnimal,
+    updateAnimal,
+    deleteAnimal,
 };

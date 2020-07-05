@@ -16,6 +16,8 @@ app.get('/api/:id', db.getUserById);
 app.get('/animals', db.getAnimals);
 app.get('/animals/:id', db.getAnimalsById);
 app.post('/animals', db.createAnimal);
+app.put('/animals/:id', db.updateAnimal);
+app.delete('/animals/:id', db.deleteAnimal);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
