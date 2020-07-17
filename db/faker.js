@@ -2,10 +2,11 @@ const faker = require('faker');
 
 module.exports = async (pool) => {
     for (let i = 0; i < 100; i++) {
-        let randomUsername = faker.internet.userName();
+        let randomEmail = faker.internet.email();
+        let randomPassword = faker.internet.password();
 
-        let text = 'INSERT INTO users (username) VALUES($1)';
-        let values = [randomUsername];
+        let text = 'INSERT INTO users (email, password_text) VALUES($1, $2)';
+        let values = [randomEmail, randomPassword];
 
         const res = await pool.query(text, values);
     }
@@ -21,13 +22,15 @@ module.exports = async (pool) => {
             country: faker.address.country(),
         };
 
-        let text = `INSERT INTO animals 
-                    (user_id, 
-                    image_url, 
-                    type_text, 
-                    city, zipcode, 
-                    street_address, 
-                    country) 
+        let text = `
+            INSERT INTO animals
+                (user_id,
+                image_url,
+                type_text,
+                city,
+                zipcode,
+                street_address,
+                country)
             VALUES($1, $2, $3, $4, $5, $6, $7)`;
 
         let values = [

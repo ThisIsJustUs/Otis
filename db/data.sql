@@ -6,36 +6,38 @@ DROP TABLE users;
 -- Create the table in the specified schema
 CREATE TABLE users
 (
-    id BIGSERIAL not null PRIMARY KEY,
-    username VARCHAR(255) UNIQUE,
-    created_at DATE not null DEFAULT now()
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    password_text VARCHAR(255) NOT NULL,
+    created_at DATE NOT NULL DEFAULT NOW(),
+    UNIQUE(email)
 );
 
 CREATE TABLE animals
 (
-    id BIGSERIAL not null PRIMARY KEY,
+    id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT REFERENCES users (id),
-    image_url VARCHAR(255) not null,
+    image_url VARCHAR(255) NOT NULL,
     type_text VARCHAR(255),
     city VARCHAR(255),
     zipcode VARCHAR(255),
     street_address VARCHAR(255),
     country VARCHAR(255),
-    created_at TIMESTAMP not null default now()
+    created_at TIMESTAMP NOT NULL default now()
 );
 
 CREATE TABLE comments
 (
-    id BIGSERIAL not null PRIMARY KEY,
-    comment_text VARCHAR(255) not null,
-    user_id BIGINT REFERENCES users (id) not null,
-    animal_id BIGINT REFERENCES animals (id) not null,
-    created_at TIMESTAMP not null default now()
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    comment_text VARCHAR(255) NOT NULL,
+    user_id BIGINT REFERENCES users (id) NOT NULL,
+    animal_id BIGINT REFERENCES animals (id) NOT NULL,
+    created_at TIMESTAMP NOT NULL default now()
 );
 
 CREATE TABLE likes
 (
-    user_id BIGINT REFERENCES users (id) not null PRIMARY KEY,
-    animal_id BIGINT REFERENCES animals (id) not null,
-    created_at TIMESTAMP not null default now()
+    user_id BIGINT REFERENCES users (id) NOT NULL PRIMARY KEY,
+    animal_id BIGINT REFERENCES animals (id) NOT NULL,
+    created_at TIMESTAMP NOT NULL default now()
 );
